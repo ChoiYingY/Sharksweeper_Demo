@@ -89,8 +89,6 @@ def reveal_around(r,c):
                         reveal_image(mine, x_pos, y_pos)
                     elif grid[x_pos][y_pos] == 0 or grid[x_pos][y_pos] == 1:
                         reveal_space(x_pos,y_pos)
-                        num_mines = count_mines_around(x_pos, y_pos)
-                        show_count(num_mines, x_pos, y_pos)
                     else:
                         reveal_image(pearl, x_pos, y_pos)
                 
@@ -124,7 +122,9 @@ def reveal_bomb():
 # When we clicked on neither mine nor pearl, it will show a blank spot and set value of its location the array as 1
 def reveal_space(r,c):
     grid[r][c] = 1
-    pygame.draw.rect(screen,WHITE,[(100 * c) +1, (100 * r)+1, 99, 99])       
+    pygame.draw.rect(screen,WHITE,[(100 * c) +1, (100 * r)+1, 99, 99]) 
+    num_mines = count_mines_around(r, c)
+    show_count(num_mines, r, c)      
 
 # Initialize pygame
 pygame.init()
@@ -181,8 +181,8 @@ while run:
                     grid[row][column] = 1
                 else:
                     reveal_space(row,column)
-                    num_mines = count_mines_around(row, column)
-                    show_count(num_mines, row, column)
+                    #num_mines = count_mines_around(row, column)
+                    #show_count(num_mines, row, column)
                 if count_revealed == 11: # because array is from 0-11
                     reveal_image(treasure,row,column)
                     print("You win!")
